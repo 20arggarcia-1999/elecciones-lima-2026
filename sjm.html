@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Alcaldía de San Juan de Miraflores 2026</title>
+<style>
+:root{
+  --bg:#f6f5f2; --card:#ffffff; --ink:#1d1d1f; --muted:#5f6368; --line:#e3e1dc;
+  --accent:#2f5d8a; --good:#2e7d4f; --mid:#b7791f; --bad:#b23b3b;
+  --c1:#3b6fb6; --c2:#2e8b6e; --c3:#c0672b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16171a; --card:#1f2125; --ink:#ececec; --muted:#a3a7ad; --line:#33363c;
+    --accent:#7fa8d6; --good:#5cbf86; --mid:#e0a84a; --bad:#e07171;
+    --c1:#6f9be0; --c2:#4fc29d; --c3:#e6904f;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1060px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.7rem;margin:0 0 4px}
+h2{font-size:1.25rem;margin:36px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+h3{font-size:1.08rem;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+table{width:100%;border-collapse:collapse;font-size:.93rem}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:600}
+.scroll{overflow-x:auto}
+.tag{display:inline-block;font-size:.78rem;padding:1px 8px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.alta{color:var(--good)} .media{color:var(--mid)} .baja{color:var(--bad)}
+.cand-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.fact-big{font-size:1.6rem;font-weight:700}
+.meter{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:4px 0 10px}
+.meter>span{display:block;height:100%}
+ul{margin:6px 0;padding-left:20px}
+li{margin:3px 0}
+.k{color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.03em;margin:12px 0 2px}
+/* calculadora */
+.profiles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+button{font:inherit;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:36px;background:transparent;touch-action:pan-y;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:8px;background:var(--line);border-radius:99px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-10px;border-radius:50%;background:var(--accent);border:3px solid var(--card);box-shadow:0 1px 3px rgba(0,0,0,.35)}
+input[type=range]::-moz-range-track{height:8px;background:var(--line);border-radius:99px}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--accent);border:3px solid var(--card)}
+input[type=number]{width:64px;font-size:16px;padding:6px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);text-align:center}
+select{font-size:16px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.frow{display:grid;grid-template-columns:1.3fr 1.5fr 2fr;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.wctl{display:flex;gap:8px;align-items:center}
+.step{width:40px;height:40px;padding:0;font-size:1.3rem;line-height:1;flex:none;touch-action:manipulation}
+.scores{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.scores label{display:flex;flex-direction:column;font-size:.8rem;color:var(--muted);gap:3px}
+.why{font-size:.8rem;color:var(--accent);background:none;border:0;padding:4px 0;cursor:pointer;text-align:left}
+.whytxt{display:none;font-size:.82rem;color:var(--muted);grid-column:1/-1;margin:0}
+.whytxt.show{display:block}
+.total-row{margin:12px 0 4px}
+@media (max-width:760px){.frow{grid-template-columns:1fr;gap:8px}}
+.sum{font-weight:700}
+.sum.err{color:var(--bad)}
+.result-row{display:grid;grid-template-columns:150px 1fr 56px;gap:10px;align-items:center;margin:8px 0}
+.bar{height:22px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar>span{display:block;height:100%;border-radius:6px;transition:width .25s}
+.score{font-weight:700;text-align:right}
+.winner{font-weight:700}
+.note{font-size:.82rem;color:var(--muted)}
+footer{margin-top:40px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:12px}
+a{color:var(--accent)}
+@media (max-width:600px){.result-row{grid-template-columns:100px 1fr 48px}}
+</style>
+</head>
+<body>
+<main>
+<p class="note"><a href="index.html">← Volver al inicio</a></p>
+<h1>Alcaldía de San Juan de Miraflores 2026: comparativo de candidatos</h1>
+<p class="sub">Elecciones Regionales y Municipales, 4 de octubre de 2026 · Elaborado por <strong>Rodrigo Garcia</strong></p>
+
+<h2>1. Contexto</h2>
+<div class="card">
+  <ul>
+    <li><strong>Candidatos:</strong> entre 16 y 21 según la fuente (Infobae lista 19). Se comparan los tres primeros de las encuestas.</li>
+    <li><strong>Encuestas:</strong>
+      <ul>
+        <li>CPI (septiembre): Mendieta 29,3 % · Leandro 17,9 % · Chávez 12,1 % · Palomino 11,6 %.</li>
+        <li>IMASOLU (18 de septiembre, 350 encuestas, ±5,2 %): Mendieta 28,3 % · Leandro 16,0 % · Chávez 11,4 %.</li>
+        <li>Una medición posterior de CPI (20–25 de septiembre) da a Mendieta 37,8 % de votos válidos, con 23,5 % de indecisos.</li>
+      </ul></li>
+    <li><strong>Gestión actual:</strong> la alcaldesa es Delia Castro (APP), que ganó en 2022 después de que el JNE excluyera a Mendieta, su compañero de lista. Mendieta trabajó después como asesor y vocero de la municipalidad.</li>
+    <li><strong>Información limitada:</strong> la prensa cubre mucho menos las elecciones distritales. Hay pocas propuestas publicadas, sobre todo de Leandro y Chávez, así que las notas de esos factores son más inciertas que en Lima.</li>
+  </ul>
+</div>
+
+<h2>2. Resumen por candidato</h2>
+<p class="sub">Ordenado según los 8 factores del ponderado. El <strong>% de factibilidad</strong> es el promedio de las propuestas conocidas: Alta = 80 %, Media-alta = 65 %, Media = 50 %, Baja-media = 35 %, Baja = 20 %.</p>
+<div class="grid3" id="cands"></div>
+
+<h2>3. Tabla comparativa</h2>
+<div class="card scroll">
+<table>
+  <thead><tr><th></th><th>Mendieta</th><th>Leandro</th><th>Chávez</th></tr></thead>
+  <tbody>
+    <tr><th>Partido</th><td>Alianza para el Progreso</td><td>Renovación Popular</td><td>Somos Perú</td></tr>
+    <tr><th>Encuesta CPI</th><td>29,3 %</td><td>17,9 %</td><td>12,1 %</td></tr>
+    <tr><th>Sentencias declaradas</th><td>Una civil por una obligación contractual (2013), no penal</td><td>Ninguna</td><td>Ninguna</td></tr>
+    <tr><th>Investigaciones fiscales</th><td>No encontré en fase formal; sí denuncias periodísticas</td><td>No encontradas</td><td>No encontradas</td></tr>
+    <tr><th>Experiencia</th><td>Asesor y vocero de la municipalidad de SJM (2023–2026); gerente de una clínica privada</td><td>Subgerenta de Educación de la Municipalidad de Lima (2024–2026)</td><td>Alcalde de Villa María del Triunfo dos periodos (2019–2026)</td></tr>
+    <tr><th>Factibilidad del plan</th><td id="tf0"></td><td id="tf1"></td><td id="tf2"></td></tr>
+    <tr><th>Riesgo particular</th><td>Fue excluido en 2022 y se le acusa de haber sido "alcalde de facto"</td><td>Poca trayectoria y propuestas poco conocidas</td><td>Viene de otro distrito; enfrentó un pedido de revocatoria en 2025</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>4. Calculadora de ponderado</h2>
+<div class="card">
+  <div class="profiles" id="profiles"></div>
+  <p class="note">Ajusta los pesos con la barra, los botones − / + o escribiendo el número. Los pesos deben sumar 100. Puedes cambiar las notas de 1 a 5; toca «¿por qué?» para ver la justificación.</p>
+  <div id="calc"></div>
+  <div class="total-row">Total de pesos: <span class="sum" id="sum"></span></div>
+  <div class="k">Resultado (de 1 a 5)</div>
+  <div id="results"></div>
+  <p class="note" id="resnote"></p>
+  <button id="reset" type="button">Restaurar notas originales</button>
+</div>
+
+<h2>5. Criterios de puntuación</h2>
+<div class="card scroll">
+<table id="rubric"><thead><tr><th>Factor</th><th>Qué mide</th><th>1</th><th>3</th><th>5</th></tr></thead><tbody></tbody></table>
+</div>
+
+<h2>6. Advertencias y fuentes</h2>
+<div class="card">
+  <ul>
+    <li>Las notas son interpretaciones de notas de prensa y hojas de vida al 4 de octubre de 2026. Que algo no aparezca no significa que no exista.</li>
+    <li>Varias notas favorables a Mendieta vienen de medios con cobertura promocional; las críticas, de reportajes de ATV, Infobae y Panamericana.</li>
+    <li>Revisa los planes de gobierno completos de los tres en <a href="https://votoinformado.jne.gob.pe">JNE Voto Informado</a> (distrito San Juan de Miraflores). Los expedientes judiciales se consultan en el <a href="https://cej.pj.gob.pe">CEJ del Poder Judicial</a>.</li>
+  </ul>
+  <details><summary>Enlaces de prensa consultados</summary>
+  <ul style="font-size:.88rem">
+    <li><a href="https://www.infobae.com/peru/2026/09/20/candidatos-a-la-alcaldia-de-san-juan-de-miraflores-lista-completa-de-los-postulantes-en-las-elecciones-municipales-2026/">Infobae – Candidatos de SJM 2026</a></li>
+    <li><a href="https://imasolu.com/elecciones-san-juan-de-miraflores-2026-quien-lidera-las-preferencias-en-sjm/">IMASOLU – Encuesta SJM</a></li>
+    <li><a href="https://rpp.pe/politica/elecciones/encuesta-cpi-asi-va-la-intencion-de-voto-para-alcaldias-en-lima-y-el-callao-noticia-1709579">RPP – Encuesta CPI distritos</a></li>
+    <li><a href="https://www.infobae.com/peru/2025/01/27/el-nuevo-wayki-de-dina-boluarte-dante-mendieta-la-figura-clave-tras-el-poder-en-san-juan-de-miraflores/">Infobae – Mendieta, figura clave en SJM</a></li>
+    <li><a href="https://www.atv.pe/noticia/denuncian-que-dante-mendieta-estaria-asumiendo-funciones-de-alcaldesa-de-sjm/">ATV – Denuncia de funciones de alcalde</a></li>
+    <li><a href="https://elchino.pe/dante-mendieta-no-le-hace-caso-al-jne-y-sigue-en-campana-en-sjm/">El Chino – Exclusión de 2022</a></li>
+    <li><a href="https://diariouno.pe/2025/09/06/dante-mendieta-seria-el-nuevo-alcalde-de-san-juan-de-miraflores-en-el-2026/">Diario UNO – Obras que destaca Mendieta</a></li>
+    <li><a href="https://rpp.pe/lima/actualidad/san-juan-de-miraflores-propuestas-candidatos-en-seguridad-ciudadana-noticia-1710535">RPP – Propuestas de seguridad en SJM</a></li>
+    <li><a href="https://larepublica.pe/elecciones/2022/08/31/elecciones-2022-quienes-son-y-que-proponen-los-candidatos-de-san-juan-de-miraflores-pltc-evat">La República – Propuestas de 2022</a></li>
+    <li><a href="https://elcomercio.pe/lima/sucesos/revocatoria-2025-ya-son-8-alcaldes-de-lima-sometidos-a-proceso-ciudadano-revocatoria-lima-rafael-lopez-aliaga-carlos-canales-cintia-loayza-francos-vidal-miraflores-noticia/">El Comercio – Revocatorias 2025</a></li>
+  </ul>
+  </details>
+</div>
+
+<footer>Elaborado por Rodrigo Garcia · 4 de octubre de 2026 · Verificar la información en las fuentes oficiales antes de decidir.</footer>
+</main>
+
+<script>
+const FACTIB = {"Alta":80,"Media-alta":65,"Media":50,"Baja-media":35,"Baja":20};
+const cls = n => n>=65?"alta":n>=45?"media":"baja";
+
+const FACTORS = [
+  {n:"Integridad y antecedentes", d:"Condenas, investigaciones fiscales y su etapa, hoja de vida completa", r:["Condena o investigación formal grave por corrupción","Investigaciones preliminares, denuncias serias o casos archivados","Sin antecedentes"]},
+  {n:"Lo que ya hizo en otros cargos", d:"Promesas cumplidas y resultados de gestiones anteriores", r:["Muchas promesas incumplidas o mala gestión documentada","Gestión con aceptación pero sin evaluación independiente","Gestión bien evaluada con resultados verificables"]},
+  {n:"Factibilidad legal", d:"Si lo que promete le corresponde a la Municipalidad", r:["Sus propuestas centrales no le corresponden","Mitad dentro, mitad fuera de sus funciones","Casi todo dentro de sus funciones"]},
+  {n:"Financiamiento", d:"Si dice de dónde saldrá el dinero", r:["Obras grandes sin fuente de dinero","Sin cifras, pero propuestas de costo moderado","Costo y financiamiento claros"]},
+  {n:"Seguridad ciudadana", d:"Calidad y realismo de las propuestas contra el delito", r:["Solo frases o promesas imposibles","Concretas pero con trabas legales o de recursos","Concretas y comprobadas"]},
+  {n:"Transporte y tránsito", d:"Pistas, veredas y movilidad", r:["Solo frases o promesas imposibles","Concretas pero con trabas legales o de recursos","Concretas y comprobadas"]},
+  {n:"Equipo y regidores", d:"Quiénes gobernarían y fiscalizarían", r:["Equipo desconocido o cuestionado","Equipo parcial o con figuras discutidas","Técnicos con experiencia comprobable"]},
+  {n:"Estabilidad del cargo", d:"Que pueda asumir y terminar su periodo", r:["Es dudoso que pueda asumir o seguir","Riesgo legal moderado","Sin riesgo"]}
+];
+
+const PROFILES = {
+  "Equilibrado":[20,15,12,12,15,10,8,8],
+  "Integridad primero":[30,15,10,10,12,8,8,7],
+  "Resultados primero":[15,20,15,15,15,10,5,5]
+};
+
+const CANDS = [
+  {name:"Luis Dante Mendieta Flores", short:"Mendieta", party:"Alianza para el Progreso", color:"var(--c1)",
+   scores:[2,3,4,2,2,2,2,4],
+   why:[
+    "Sentencia civil de 2013 que omitió en 2022 y le costó la exclusión; denuncias de ejercer como alcalde sin serlo y de ocupar con su clínica un terreno destinado a un colegio. Sin investigación fiscal formal encontrada.",
+    "No ha sido alcalde, pero fue la figura central de la gestión de Delia Castro (obras de pistas, agua en zonas altas). Sin evaluación independiente.",
+    "Sus propuestas (pistas, academia preuniversitaria, deporte, saneamiento de predios) son casi todas municipales.",
+    "No da cifras; propuestas de costo moderado salvo el centro de alto rendimiento.",
+    "No encontré propuestas de seguridad concretas.",
+    "Solo propone reparar pistas.",
+    "Sin equipo publicado; seguiría el entorno de la gestión actual, que tiene denuncias.",
+    "Está inscrito, pero ya fue excluido una vez por omitir información."],
+   summary:{
+    integ:["<strong>Hoja de vida:</strong> declara una sentencia civil por una obligación contractual (2° Juzgado de Paz Letrado Civil-Laboral de Lima Sur, 2013). No es penal.","<strong>2022:</strong> el JNE lo excluyó por no haber declarado esa sentencia (Res. 2881-2022-JNE).","Denuncia periodística (ATV): habría ejercido funciones de alcalde como asesor; el MEF registra pagos de la municipalidad por S/ 144.000 (2023) y S/ 43.000 (2024).","Disputa por un terreno destinado a un colegio que ocupa su clínica privada; el caso sigue abierto."],
+    gestion:["Asesor en gestión pública y experto legal de la municipalidad de SJM (2023–2026). Destaca obras de pistas, veredas y agua y desagüe en zonas altas (Nueva Rinconada), sin evaluación independiente."],
+    equipo:"No encontré equipo técnico publicado. Es cercano al entorno de César Acuña y tuvo cercanía con el gobierno de Dina Boluarte.",
+    estab:"Inscrito y en carrera. Riesgo moderado por las denuncias en curso.",
+    plan:[["Reparación de pistas","Alta"],["Academia municipal preuniversitaria","Alta"],["Centro de Alto Rendimiento deportivo","Media"],["Saneamiento de predios y agua y desagüe en asentamientos","Media"]]
+   }},
+  {name:"Mabel Karina Leandro Melgarejo", short:"Leandro", party:"Renovación Popular", color:"var(--c2)",
+   scores:[4,2,3,2,2,2,2,5],
+   why:[
+    "No declara sentencias y no encontré investigaciones. Le pongo 4 y no 5 porque la prensa la ha revisado poco.",
+    "No tiene cargos de elección; fue subgerenta en la Municipalidad de Lima durante la gestión de López Aliaga.",
+    "Sus propuestas conocidas son municipales, pero en parte dependen de la Policía y del Ministerio de Salud.",
+    "Sin cifras conocidas.",
+    "Propuestas genéricas (convenios con la Policía, alumbrado), de 2022.",
+    "Sin propuestas de transporte conocidas.",
+    "Sin equipo publicado; su partido lleva 110 candidatos sentenciados a nivel nacional.",
+    "Sin riesgo identificado."],
+   summary:{
+    integ:["No declara sentencias penales ni civiles.","No encontré investigaciones fiscales ni denuncias en la prensa.","Tiene participación en una empresa educativa privada (Corporación Educativa Mi Nuevo Mundo School)."],
+    gestion:["Subgerenta de Educación, Deporte, Juventud y Recreación de la Municipalidad de Lima (2024–2026) y jefa del departamento de ACAMI (2023), durante la gestión de López Aliaga. Profesora de educación inicial."],
+    equipo:"No encontré equipo técnico publicado.",
+    estab:"Sin riesgo identificado.",
+    plan:[["Convenios con la Policía para el patrullaje (propuesta de 2022)","Alta"],["Más alumbrado público (2022)","Media-alta"],["Reactivar centros de salud cerrados (2022)","Media"]]
+   }},
+  {name:"Eloy Chávez Hernández", short:"Chávez", party:"Somos Perú", color:"var(--c3)",
+   scores:[4,3,3,2,2,2,2,5],
+   why:[
+    "No declara sentencias y no encontré investigaciones fiscales en su contra. Le pongo 4 y no 5 porque la prensa lo ha revisado poco.",
+    "Dos periodos como alcalde de Villa María del Triunfo (reelegido); en 2025 enfrentó un pedido de revocatoria.",
+    "No encontré sus propuestas para SJM; nota neutra.",
+    "Sin cifras conocidas.",
+    "Sin propuestas de seguridad conocidas para SJM.",
+    "Sin propuestas de transporte conocidas para SJM.",
+    "Sin equipo publicado.",
+    "Sin riesgo identificado."],
+   summary:{
+    integ:["No declara sentencias penales ni civiles.","No encontré investigaciones fiscales en su contra.","En 2025 los vecinos de Villa María del Triunfo iniciaron un proceso de revocatoria contra él."],
+    gestion:["Alcalde de Villa María del Triunfo de 2019 a 2026, en dos periodos (primero con Perú Patria Segura, luego con APP). Es el único de los tres con experiencia como alcalde. Postula en un distrito distinto al que gobierna."],
+    equipo:"No encontré equipo técnico publicado.",
+    estab:"Sin riesgo identificado.",
+    plan:[]
+   }}
+];
+const ORIGINAL = CANDS.map(c=>c.scores.slice());
+CANDS.forEach(c=>{
+  const v=c.summary.plan.map(p=>FACTIB[p[1]]);
+  c.factib=v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):null;
+});
+
+const cg=document.getElementById("cands");
+CANDS.forEach((c,i)=>{
+  const s=c.summary;
+  const planRows=s.plan.length
+    ? `<table>${s.plan.map(p=>`<tr><td>${p[0]}</td><td><span class="tag ${cls(FACTIB[p[1]])}">${p[1]} · ${FACTIB[p[1]]} %</span></td></tr>`).join("")}</table>`
+    : `<p class="note" style="margin:4px 0">No encontré propuestas publicadas para SJM. Revisa su plan en Voto Informado.</p>`;
+  const fb=c.factib===null
+    ? `<div class="fact-big media">Sin datos</div>`
+    : `<div class="fact-big ${cls(c.factib)}">${c.factib} %</div><div class="meter"><span style="width:${c.factib}%;background:${c.color}"></span></div><p class="note" style="margin:0 0 6px">Basado en ${s.plan.length} propuestas conocidas.</p>`;
+  cg.insertAdjacentHTML("beforeend",`
+  <div class="card">
+    <div class="cand-head"><span class="dot" style="background:${c.color}"></span><div><h3>${c.name}</h3><div class="note">${c.party}</div></div></div>
+    <div class="k">Factibilidad del plan</div>${fb}
+    <div class="k">Integridad y antecedentes</div><ul>${s.integ.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <div class="k">Gestión anterior</div><ul>${s.gestion.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <div class="k">Plan de trabajo</div>${planRows}
+    <div class="k">Equipo y regidores</div><p style="margin:4px 0">${s.equipo}</p>
+    <div class="k">Estabilidad del cargo</div><p style="margin:4px 0">${s.estab}</p>
+  </div>`);
+  document.getElementById("tf"+i).innerHTML=c.factib===null?"Sin datos":`<span class="tag ${cls(c.factib)}">${c.factib} %</span>`;
+});
+
+document.querySelector("#rubric tbody").innerHTML=FACTORS.map(f=>`<tr><td><strong>${f.n}</strong></td><td>${f.d}</td><td>${f.r[0]}</td><td>${f.r[1]}</td><td>${f.r[2]}</td></tr>`).join("");
+
+let weights=PROFILES["Resultados primero"].slice();
+let current="Resultados primero";
+const pf=document.getElementById("profiles");
+function drawProfiles(){
+  pf.innerHTML="";
+  Object.keys(PROFILES).forEach(k=>{
+    const b=document.createElement("button");b.type="button";b.textContent=k;
+    if(k===current)b.className="on";
+    b.onclick=()=>{weights=PROFILES[k].slice();current=k;drawProfiles();drawTable();};
+    pf.appendChild(b);
+  });
+}
+const box=document.getElementById("calc");
+function drawTable(){
+  box.innerHTML="";
+  FACTORS.forEach((f,i)=>{
+    const row=document.createElement("div");row.className="frow";
+    const why=CANDS.map(c=>`<strong>${c.short}:</strong> ${c.why[i]}`).join("<br>");
+    row.innerHTML=`
+      <div><strong>${f.n}</strong><div class="note">${f.d}</div>
+        <button type="button" class="why" data-why="${i}">¿por qué estas notas?</button></div>
+      <div class="wctl">
+        <button type="button" class="step" data-step="-1" data-i="${i}" aria-label="Bajar peso">−</button>
+        <input type="range" min="0" max="50" step="1" value="${weights[i]}" data-w="${i}" aria-label="Peso de ${f.n}">
+        <button type="button" class="step" data-step="1" data-i="${i}" aria-label="Subir peso">+</button>
+        <input type="number" inputmode="numeric" min="0" max="100" value="${weights[i]}" data-wn="${i}" aria-label="Peso de ${f.n}">
+      </div>
+      <div class="scores">${CANDS.map((c,j)=>`<label>${c.short}<select data-c="${j}" data-f="${i}">${[1,2,3,4,5].map(v=>`<option${v===c.scores[i]?" selected":""}>${v}</option>`).join("")}</select></label>`).join("")}</div>
+      <p class="whytxt" id="why${i}">${why}</p>`;
+    box.appendChild(row);
+  });
+  box.querySelectorAll("[data-w]").forEach(el=>{
+    const h=e=>setW(+el.dataset.w,+e.target.value);
+    el.addEventListener("input",h);el.addEventListener("change",h);
+  });
+  box.querySelectorAll("[data-wn]").forEach(el=>el.addEventListener("input",e=>setW(+el.dataset.wn,+e.target.value||0)));
+  box.querySelectorAll("[data-step]").forEach(el=>el.addEventListener("click",()=>{const i=+el.dataset.i;setW(i,weights[i]+(+el.dataset.step));}));
+  box.querySelectorAll("[data-why]").forEach(el=>el.addEventListener("click",()=>document.getElementById("why"+el.dataset.why).classList.toggle("show")));
+  box.querySelectorAll("select").forEach(el=>el.addEventListener("change",e=>{CANDS[+el.dataset.c].scores[+el.dataset.f]=+e.target.value;calc();}));
+  calc();
+}
+function setW(i,v){
+  weights[i]=Math.max(0,Math.min(100,v));
+  const r=box.querySelector(`[data-w="${i}"]`), n=box.querySelector(`[data-wn="${i}"]`);
+  if(+r.value!==weights[i])r.value=weights[i];
+  if(document.activeElement!==n)n.value=weights[i];
+  current=null;drawProfiles();calc();
+}
+function calc(){
+  const total=weights.reduce((a,b)=>a+b,0);
+  const sumEl=document.getElementById("sum");
+  sumEl.textContent=total+(total===100?" ✓":" (debe sumar 100)");
+  sumEl.className="sum"+(total===100?"":" err");
+  const res=CANDS.map(c=>({c,v: total? c.scores.reduce((a,s,i)=>a+s*weights[i],0)/total : 0}))
+    .sort((a,b)=>b.v-a.v);
+  document.getElementById("results").innerHTML=res.map((r,k)=>`
+    <div class="result-row">
+      <div class="${k===0?"winner":""}">${k+1}. ${r.c.short}</div>
+      <div class="bar"><span style="width:${(r.v/5*100).toFixed(1)}%;background:${r.c.color}"></span></div>
+      <div class="score">${r.v.toFixed(2)}</div>
+    </div>`).join("");
+  const gap=res[0].v-res[1].v;
+  document.getElementById("resnote").textContent = total!==100
+    ? "Los pesos no suman 100: el resultado se normaliza, pero conviene ajustarlos."
+    : (gap<0.1 ? `Prácticamente empate entre ${res[0].c.short} y ${res[1].c.short} (diferencia ${gap.toFixed(2)}).`
+               : `${res[0].c.short} lidera por ${gap.toFixed(2)} puntos sobre ${res[1].c.short}.`);
+}
+document.getElementById("reset").onclick=()=>{CANDS.forEach((c,i)=>c.scores=ORIGINAL[i].slice());drawTable();};
+drawProfiles();drawTable();
+</script>
+</body>
+</html>
