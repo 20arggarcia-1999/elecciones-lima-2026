@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Alcaldía de Lima 2026</title>
+<style>
+:root{
+  --bg:#f6f5f2; --card:#ffffff; --ink:#1d1d1f; --muted:#5f6368; --line:#e3e1dc;
+  --accent:#2f5d8a; --good:#2e7d4f; --mid:#b7791f; --bad:#b23b3b;
+  --c1:#3b6fb6; --c2:#2e8b6e; --c3:#c0672b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16171a; --card:#1f2125; --ink:#ececec; --muted:#a3a7ad; --line:#33363c;
+    --accent:#7fa8d6; --good:#5cbf86; --mid:#e0a84a; --bad:#e07171;
+    --c1:#6f9be0; --c2:#4fc29d; --c3:#e6904f;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1060px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.7rem;margin:0 0 4px}
+h2{font-size:1.25rem;margin:36px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+h3{font-size:1.08rem;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+table{width:100%;border-collapse:collapse;font-size:.93rem}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:600}
+.scroll{overflow-x:auto}
+.tag{display:inline-block;font-size:.78rem;padding:1px 8px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.alta{color:var(--good)} .media{color:var(--mid)} .baja{color:var(--bad)}
+.cand-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.fact-big{font-size:1.6rem;font-weight:700}
+.meter{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:4px 0 10px}
+.meter>span{display:block;height:100%}
+ul{margin:6px 0;padding-left:20px}
+li{margin:3px 0}
+.k{color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.03em;margin:12px 0 2px}
+/* calculadora */
+.profiles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+button{font:inherit;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:36px;background:transparent;touch-action:pan-y;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:8px;background:var(--line);border-radius:99px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-10px;border-radius:50%;background:var(--accent);border:3px solid var(--card);box-shadow:0 1px 3px rgba(0,0,0,.35)}
+input[type=range]::-moz-range-track{height:8px;background:var(--line);border-radius:99px}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--accent);border:3px solid var(--card)}
+input[type=number]{width:64px;font-size:16px;padding:6px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);text-align:center}
+select{font-size:16px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.frow{display:grid;grid-template-columns:1.3fr 1.5fr 2fr;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.wctl{display:flex;gap:8px;align-items:center}
+.step{width:40px;height:40px;padding:0;font-size:1.3rem;line-height:1;flex:none;touch-action:manipulation}
+.scores{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.scores label{display:flex;flex-direction:column;font-size:.8rem;color:var(--muted);gap:3px}
+.why{font-size:.8rem;color:var(--accent);background:none;border:0;padding:4px 0;cursor:pointer;text-align:left}
+.whytxt{display:none;font-size:.82rem;color:var(--muted);grid-column:1/-1;margin:0}
+.whytxt.show{display:block}
+.total-row{margin:12px 0 4px}
+@media (max-width:760px){.frow{grid-template-columns:1fr;gap:8px}}
+.sum{font-weight:700}
+.sum.err{color:var(--bad)}
+.result-row{display:grid;grid-template-columns:150px 1fr 56px;gap:10px;align-items:center;margin:8px 0}
+.bar{height:22px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar>span{display:block;height:100%;border-radius:6px;transition:width .25s}
+.score{font-weight:700;text-align:right}
+.winner{font-weight:700}
+.note{font-size:.82rem;color:var(--muted)}
+footer{margin-top:40px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:12px}
+a{color:var(--accent)}
+@media (max-width:600px){.result-row{grid-template-columns:100px 1fr 48px}}
+</style>
+</head>
+<body>
+<main>
+<h1>Alcaldía de Lima 2026: comparativo de candidatos</h1>
+<p class="sub">Elecciones Regionales y Municipales, 4 de octubre de 2026 · Elaborado por <strong>Rodrigo Garcia</strong></p>
+
+<h2>1. Contexto</h2>
+<div class="card">
+  <ul>
+    <li><strong>Candidatos:</strong> 24 listas vigentes según Infobae (26 organizaciones inscritas, 1 retiro y Renovación Popular sin candidato a alcalde). Gestión reportó 22 al cierre de inscripción. La cifra oficial está en JNE Voto Informado.</li>
+    <li><strong>Encuesta CPI (20–26 de septiembre, votos válidos):</strong> López Aliaga 27,2 % · Bruce 15,2 % · Allison 10,4 % · Urresti 7,5 % · Daza 4,8 %. Blancos o nulos: 12,3 %; indecisos: 7,2 %. Ipsos (agosto) da el mismo orden.</li>
+    <li><strong>Situación de López Aliaga:</strong> va como <em>primer regidor</em> de Renovación Popular porque su candidato a alcalde, Luis Rubio, renunció. Si gana la lista, él asumiría la alcaldía. El JNE rechazó excluirlo (Res. 3707-2026-JNE), pero el Pleno aún debe definir qué pasa si gana. Hay debate sobre si es una reelección inmediata encubierta.</li>
+    <li><strong>Finanzas de Lima:</strong> la Municipalidad debe más de S/ 4.000 millones en bonos (unos S/ 4.700 millones con intereses), con pagos de más de S/ 300–500 millones al año hasta 2038. Moody's bajó su calificación a grado especulativo. Cualquier obra grande sin una fuente de dinero clara es difícil de hacer.</li>
+  </ul>
+</div>
+
+<h2>2. Resumen por candidato</h2>
+<p class="sub">Ordenado según los 8 factores del ponderado. El <strong>% de factibilidad</strong> es el promedio de sus propuestas principales: Alta = 80 %, Media-alta = 65 %, Media = 50 %, Baja-media = 35 %, Baja = 20 %.</p>
+<div class="grid3" id="cands"></div>
+
+<h2>3. Tabla comparativa</h2>
+<div class="card scroll">
+<table>
+  <thead><tr><th></th><th>López Aliaga</th><th>Bruce</th><th>Allison</th></tr></thead>
+  <tbody>
+    <tr><th>Partido</th><td>Renovación Popular (primer regidor)</td><td>Somos Perú</td><td>Avanza País</td></tr>
+    <tr><th>Encuesta CPI</th><td>27,2 %</td><td>15,2 %</td><td>10,4 %</td></tr>
+    <tr><th>Investigación más grave</th><td>Colusión y negociación incompatible por los bonos (preliminar)</td><td>Usurpación agravada por una demolición (investigación preparatoria)</td><td>Ninguna confirmada en fase formal</td></tr>
+    <tr><th>Condenas</th><td>No encontradas</td><td>Ninguna</td><td>Una en EE. UU. (2010), por no declarar dinero en la aduana</td></tr>
+    <tr><th>Experiencia</th><td>Alcalde de Lima 2023–2025</td><td>Alcalde de Surco y exministro de Vivienda</td><td>Alcalde de Magdalena (casi 20 años) y exministro de Vivienda</td></tr>
+    <tr><th>Factibilidad del plan</th><td id="tf0"></td><td id="tf1"></td><td id="tf2"></td></tr>
+    <tr><th>Equipo técnico</th><td>No publicado</td><td>Publicado y con experiencia</td><td>No publicado (solo teniente alcaldesa)</td></tr>
+    <tr><th>Riesgo particular</th><td>Situación legal del cargo; deuda que él mismo dejó</td><td>El proceso judicial puede avanzar durante su gestión</td><td>Denuncias antiguas no resueltas</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>4. Calculadora de ponderado</h2>
+<div class="card">
+  <div class="profiles" id="profiles"></div>
+  <p class="note">Ajusta los pesos con la barra, los botones − / + o escribiendo el número. Los pesos deben sumar 100. Puedes cambiar las notas de 1 a 5; toca «¿por qué?» para ver la justificación.</p>
+  <div id="calc"></div>
+  <div class="total-row">Total de pesos: <span class="sum" id="sum"></span></div>
+  <div class="k">Resultado (de 1 a 5)</div>
+  <div id="results"></div>
+  <p class="note" id="resnote"></p>
+  <button id="reset" type="button">Restaurar notas originales</button>
+</div>
+
+<h2>5. Criterios de puntuación</h2>
+<div class="card scroll">
+<table id="rubric"><thead><tr><th>Factor</th><th>Qué mide</th><th>1</th><th>3</th><th>5</th></tr></thead><tbody></tbody></table>
+</div>
+
+<h2>6. Otros factores para votar bien</h2>
+<div class="card">
+<ol>
+  <li><strong>Votas por una lista:</strong> alcalde y regidores. Los regidores fiscalizan al alcalde.</li>
+  <li><strong>Competencia municipal:</strong> desconfía de lo que depende del Congreso o del gobierno nacional (ATU, colegios, policía propia, red de agua).</li>
+  <li><strong>Financiamiento:</strong> con la deuda actual, una obra grande sin dinero asignado difícilmente se hará.</li>
+  <li><strong>Lo que ya hicieron:</strong> compara lo que prometieron con lo que cumplieron.</li>
+  <li><strong>Equipo técnico:</strong> quiénes serían los gerentes.</li>
+  <li><strong>Tus prioridades:</strong> según tu zona y cómo te mueves.</li>
+  <li><strong>Etapa de cada caso:</strong> no es lo mismo una denuncia en la prensa que una investigación preliminar, una formal o una condena.</li>
+  <li><strong>El voto distrital:</strong> tu alcalde distrital maneja el serenazgo, la limpieza y las licencias de tu barrio.</li>
+</ol>
+</div>
+
+<h2>7. Advertencias y fuentes</h2>
+<div class="card">
+  <ul>
+    <li>Las notas son interpretaciones de notas de prensa al 4 de octubre de 2026. Que algo no aparezca no significa que no exista: algunos casos pueden haberse archivado o haber avanzado sin cobertura.</li>
+    <li>Lima Gris y Willax tienen línea editorial marcada; sus datos se tomaron con reserva.</li>
+    <li>Fuentes oficiales: <a href="https://votoinformado.jne.gob.pe">JNE Voto Informado</a> (hojas de vida, planes, listas) · <a href="https://cej.pj.gob.pe">CEJ del Poder Judicial</a> (expedientes judiciales) · <a href="https://www.onpe.gob.pe">ONPE</a>.</li>
+  </ul>
+  <details><summary>Enlaces de prensa consultados</summary>
+  <ul style="font-size:.88rem">
+    <li><a href="https://www.infobae.com/peru/2026/09/27/ultima-encuesta-de-cpi-asi-va-la-intencion-de-voto-a-rafael-lopez-aliaga-carlos-bruce-francis-allison-y-otros-candidatos-a-la-alcaldia-de-lima/">Infobae – Encuesta CPI</a></li>
+    <li><a href="https://rpp.pe/politica/elecciones/estos-son-los-candidatos-que-lideran-la-intencion-de-voto-para-la-alcaldia-de-lima-segun-ipsos-noticia-1700772">RPP – Encuesta Ipsos</a></li>
+    <li><a href="https://www.infobae.com/peru/2026/10/04/candidatos-a-la-alcaldia-de-lima-para-las-elecciones-municipales-y-regionales-2026-perfiles-y-partidos-por-el-que-postulan/">Infobae – Lista de candidatos</a></li>
+    <li><a href="https://www.infobae.com/peru/2026/05/19/fiscalia-ordena-diligencias-por-60-dias-contra-rafael-lopez-aliaga-por-presunta-corrupcion-y-lo-cita-a-declarar-el-4-de-junio/">Infobae – Investigación a López Aliaga por los bonos</a></li>
+    <li><a href="https://canaln.pe/actualidad/jne-declara-infundada-apelacion-y-confirma-que-rafael-lopez-aliaga-sigue-como-primer-regidor-n494822">Canal N – JNE y López Aliaga como primer regidor</a></li>
+    <li><a href="https://larepublica.pe/sociedad/2025/10/12/rafael-lopez-aliaga-dejaria-la-alcaldia-de-lima-sin-cumplir-25-promesas-de-su-plan-de-gobierno-municipal-hnews-167364">La República – 25 promesas sin cumplir</a></li>
+    <li><a href="https://www.infobae.com/peru/2025/11/05/empolvados-y-bajo-el-sol-asi-estan-los-trenes-caltrain-de-rafael-lopez-aliaga-que-llegaron-al-peru-hace-tres-meses/">Infobae – Trenes Caltrain</a></li>
+    <li><a href="https://caretas.pe/politica/sunat-mantiene-deuda-coactiva-millonaria-vinculada-a-empresa-de-lopez-aliaga/">Caretas – Deuda coactiva SUNAT</a></li>
+    <li><a href="https://caretas.pe/?p=835014">Caretas – 110 candidatos sentenciados en Renovación Popular</a></li>
+    <li><a href="https://www.infobae.com/peru/2026/09/23/rafael-lopez-aliaga-repite-en-el-debate-sus-propuestas-para-lima-mas-vias-buses-electricos-agua-y-hospitales-solidarios/">Infobae – Propuestas de López Aliaga</a></li>
+    <li><a href="https://latinanoticias.pe/politica/fiscalia-formaliza-investigacion-preparatoria-contra-carlos-bruce-y-otros-por-usurpacion-agravada-adp-noticia_20260624/">Latina – Investigación preparatoria contra Bruce</a></li>
+    <li><a href="https://elbuho.pe/2026/10/carlos-bruce-y-luiz-carlos-reategui-son-alcaldes-sin-investigaciones-fiscales/">El Búho / PerúCheck – Bruce "sin investigaciones"</a></li>
+    <li><a href="https://wayka.pe/fiscalia-lambayeque-abre-investigacion-a-carlos-bruce-por-trafico-de-influencias/">Wayka – Tráfico de influencias (2019)</a></li>
+    <li><a href="https://andina.pe/agencia/noticia-erm-2026-seguridad-ciudadana-transporte-y-reactivacion-urbana-plantea-bruce-para-lima-1090797.aspx">Andina – Plan de Bruce</a></li>
+    <li><a href="https://caretas.pe/politica/quienes-conforman-el-equipo-tecnico-de-carlos-bruce-para-la-alcaldia-de-lima">Caretas – Equipo técnico de Bruce</a></li>
+    <li><a href="https://www.infobae.com/2009/11/25/486298-detuvieron-ex-ministro-peruano-presunto-contrabando-dinero/">Infobae – Allison detenido en Miami (2009)</a></li>
+    <li><a href="https://elcomercio.pe/lima/francis-allison-investigado-nuevamente-lavado-activos-337291-noticia/">El Comercio – Allison y lavado de activos</a></li>
+    <li><a href="https://larepublica.pe/politica/2024/12/02/francis-allison-alcalde-de-magdalena-es-acusado-de-remodelar-casa-de-fiscal-elizabeth-peralta-en-medio-de-investigacion-peru-noticias-68076">La República – Caso fiscal Peralta</a></li>
+    <li><a href="https://limagris.com/francis-allison-del-calabozo-de-miami-al-sillon-de-la-alcaldia-de-lima/">Lima Gris – Antecedentes de Allison</a></li>
+    <li><a href="https://andina.pe/agencia/noticia-debate-erm-2026-francis-allison-propone-creacion-del-serenazgo-metropolitano-1092939.aspx">Andina – Serenazgo metropolitano de Allison</a></li>
+    <li><a href="https://www.exitosanoticias.pe/politica/debate-municipal-2026-francis-allison-plantea-devolver-atu-mml-formalizar-transporte-informal-lima-n184320">Exitosa – Allison y la ATU</a></li>
+    <li><a href="https://larazon.pe/francis-allison-propone-megaobras-viales-para-reducir-congestion-vehicular-en-lima/">La Razón – Obras viales de Allison</a></li>
+    <li><a href="https://larepublica.pe/economia/2025/06/19/consejo-fiscal-advierte-que-la-municipalidad-de-lima-ha-concertado-niveles-de-endeudamiento-excesivos-hnews-1548424">La República – Consejo Fiscal sobre la deuda de Lima</a></li>
+    <li><a href="https://canaln.pe/amp/actualidad/moodys-baja-calificacion-lima-y-le-quita-grado-inversion-n484339">Canal N – Moody's baja la calificación de Lima</a></li>
+  </ul>
+  </details>
+</div>
+
+<footer>Elaborado por Rodrigo Garcia · 4 de octubre de 2026 · Verificar la información en las fuentes oficiales antes de decidir.</footer>
+</main>
+
+<script>
+const FACTIB = {"Alta":80,"Media-alta":65,"Media":50,"Baja-media":35,"Baja":20};
+const cls = n => n>=65?"alta":n>=45?"media":"baja";
+
+const FACTORS = [
+  {n:"Integridad y antecedentes", d:"Condenas, investigaciones fiscales y su etapa, hoja de vida completa", r:["Condena o investigación formal grave por corrupción","Investigaciones preliminares o casos archivados","Sin antecedentes"]},
+  {n:"Lo que ya hizo en otros cargos", d:"Promesas cumplidas y resultados de gestiones anteriores", r:["Muchas promesas incumplidas o mala gestión documentada","Gestión con aceptación pero sin evaluación independiente","Gestión bien evaluada con resultados verificables"]},
+  {n:"Factibilidad legal", d:"Si lo que promete le corresponde a la Municipalidad", r:["Sus propuestas centrales no le corresponden","Mitad dentro, mitad fuera de sus funciones","Casi todo dentro de sus funciones"]},
+  {n:"Financiamiento", d:"Si dice de dónde saldrá el dinero, considerando la deuda", r:["Obras grandes sin fuente de dinero","Sin cifras, pero propuestas de costo moderado","Costo y financiamiento claros"]},
+  {n:"Seguridad ciudadana", d:"Calidad y realismo de las propuestas contra el delito", r:["Solo frases o promesas imposibles","Concretas pero con trabas legales o de recursos","Concretas y comprobadas"]},
+  {n:"Transporte y tránsito", d:"Calidad y realismo de las propuestas de movilidad", r:["Solo frases o promesas imposibles","Concretas pero con trabas legales o de recursos","Concretas y comprobadas"]},
+  {n:"Equipo y regidores", d:"Quiénes gobernarían y fiscalizarían", r:["Equipo desconocido o cuestionado","Equipo parcial o con figuras discutidas","Técnicos con experiencia comprobable"]},
+  {n:"Estabilidad del cargo", d:"Que pueda asumir y terminar su periodo", r:["Es dudoso que pueda asumir o seguir","Riesgo legal moderado","Sin riesgo"]}
+];
+
+const PROFILES = {
+  "Equilibrado":[20,15,12,12,15,10,8,8],
+  "Integridad primero":[30,15,10,10,12,8,8,7],
+  "Resultados primero":[15,20,15,15,15,10,5,5]
+};
+
+const CANDS = [
+  {name:"Rafael López Aliaga", short:"López Aliaga", party:"Renovación Popular (primer regidor)", color:"var(--c1)",
+   scores:[2,2,2,1,2,2,2,2],
+   why:[
+    "Investigación preliminar por colusión y negociación incompatible por los bonos; caso Caltrain en la Fiscalía; deudas coactivas con SUNAT.",
+    "Dejó 25 de 105 promesas sin cumplir, deuda récord, trenes sin usar, cámaras y patrulleros que no llegaron.",
+    "ATU, colegios y canon aduanero dependen de leyes o del gobierno nacional.",
+    "Obras muy caras sobre la deuda que él mismo dejó.",
+    "Sin plan concreto y con promesas incumplidas en el tema.",
+    "Depende de la ATU y de túneles caros.",
+    "Sin equipo publicado; lista atípica; su partido lleva 110 candidatos sentenciados a nivel nacional.",
+    "El JNE aún no define qué pasa si gana."],
+   summary:{
+    integ:["<strong>Activo:</strong> investigación preliminar anticorrupción por colusión y negociación incompatible por los bonos de S/ 4.000 millones (abierta en marzo de 2026, ampliada en mayo).","Caso de los trenes Caltrain en la Contraloría y la Fiscalía.","Unos S/ 28 millones en deudas coactivas con SUNAT de empresas vinculadas; el JNE revisó si omitió una en su hoja de vida.","Caso Orellana (2021): señalado por un colaborador eficaz; él lo niega. Sin investigación formal conocida."],
+    gestion:["Alcalde de Lima de 2023 a octubre de 2025. Dejó 25 de 105 promesas sin cumplir y la deuda en bonos que limitará a las próximas gestiones."],
+    equipo:"No publicó equipo técnico. Va como primer regidor porque su lista no tiene candidato a alcalde.",
+    estab:"Si gana, el Pleno del JNE debe definir si puede asumir (debate sobre reelección inmediata encubierta).",
+    plan:[["Recuperar la ATU y buses eléctricos","Baja"],["Túneles en Abancay y La Molina, terminar la Vía Expresa Sur","Baja-media"],["8 carriles Panamericana Norte, Canta Callao–Trapiche, obras en Lima Este","Media"],["Financiarse con canon aduanero","Baja"],["Municipalidad maneja colegios con 3 comidas","Baja"],["Agua de emergencia para zonas altas","Media"],["Comedores, Vaso de Leche, hospitales y veterinarias solidarias","Alta"]]
+   }},
+  {name:"Carlos Bruce", short:"Bruce", party:"Somos Perú", color:"var(--c2)",
+   scores:[3,3,3,2,3,4,4,4],
+   why:[
+    "Investigación en fase formal, pero por una demolición municipal, no por corrupción. Caso de 2019 sin resultado conocido.",
+    "Gestión en Surco con aceptación, sin evaluación independiente revisada.",
+    "La policía municipal choca con la ley; su transporte sí le corresponde.",
+    "Sin cifras, aunque sus propuestas son más baratas.",
+    "Concretas, pero su eje (policía municipal) tiene problema legal.",
+    "Corredores, semáforos y ciclovías: dentro de sus funciones y de bajo costo.",
+    "Único equipo publicado, con experiencia; Romero y Gutiérrez tienen gestiones cuestionadas.",
+    "Su proceso judicial podría avanzar durante su gestión."],
+   summary:{
+    integ:["<strong>Activo:</strong> usurpación agravada por la demolición de un predio vinculado a María Acuña (Surco, octubre de 2025). Investigación preparatoria formalizada el 24/06/2026.","Tráfico de influencias, caso “Los Temerarios del Crimen” (2019, preliminar): resultado desconocido.","Hoja de vida sin sentencias. PerúCheck calificó de “imprecisa” su frase de alcalde “sin investigaciones”.","Acusación de López Aliaga sobre narcotráfico: no probada."],
+    gestion:["Alcalde de Surco (serenos con pistolas eléctricas, base de su propuesta) y exministro de Vivienda."],
+    equipo:"Publicó equipo técnico: Vicente Romero (primer regidor, exministro del Interior, censurado en 2023), Sonia Medina (ex procuradora antidrogas), Héctor Loayza (exviceministro de Seguridad), Aldo Facho (urbanista), Rosa Gutiérrez (exministra de Salud).",
+    estab:"Puede asumir sin problema. Riesgo: que el proceso judicial avance durante su gestión.",
+    plan:[["Policía Municipal Metropolitana","Baja-media"],["Serenos con pistolas eléctricas, hasta 2.000","Alta"],["Central C5i y 12 drones","Alta"],["5 corredores segregados, semáforos inteligentes, ciclovías","Media-alta"],["Conexión Canta Callao–Panamericana Norte","Media"],["Quitar peajes (arbitraje en curso)","Baja-media"],["10.000 viviendas Techo Propio Limeño","Baja-media"],["Titulación de predios","Media-alta"]]
+   }},
+  {name:"Francis Allison", short:"Allison", party:"Avanza País", color:"var(--c3)",
+   scores:[2,3,3,2,4,2,2,5],
+   why:[
+    "Condena menor en EE. UU.; lavado archivado; denuncias de corrupción sin resolver y acusación de la fiscal Peralta.",
+    "Casi 20 años en Magdalena con aceptación, sin evaluación independiente revisada.",
+    "Su seguridad le corresponde; eliminar la ATU no.",
+    "Seguridad barata, pero obras grandes en Lima Norte sin dinero.",
+    "Medidas concretas, baratas y probadas en Magdalena.",
+    "Eliminar la ATU y obras grandes sin dinero.",
+    "Sin equipo publicado; solo se conoce a la teniente alcaldesa.",
+    "Sin riesgo identificado."],
+   summary:{
+    integ:["<strong>Condena (EE. UU., 2010):</strong> no declarar USD 50.250 en la aduana de Miami; 4 días (cumplidos), multa y 3 años sin ingresar a EE. UU. Declarada en su hoja de vida; sin efectos en Perú.","Lavado de activos: archivado en 2015; la Procuraduría pidió reabrir.","Acusación (2024) de pagar la remodelación de la casa de la fiscal Peralta para archivar su caso; él lo niega. Sin investigación formal confirmada.","Denuncias pendientes según un solo medio: ordenanzas de edificios de 25 pisos, S/ 32 millones en aportes de pensiones, informe de Contraloría 2026."],
+    gestion:["Alcalde de Magdalena durante casi 20 años, con alta popularidad local. Exministro de Vivienda."],
+    equipo:"No publicó equipo técnico. Teniente alcaldesa: Ivone Ruth Tapia Vivas, actual regidora de Lima.",
+    estab:"Sin riesgo identificado para asumir y terminar el periodo.",
+    plan:[["Serenazgo metropolitano con un policía en cada vehículo","Media"],["Recompensa de S/ 25.000 por sicarios","Media"],["Mapas de calor, cámaras, LED, cierre de puntos de venta de robados","Alta"],["Eliminar la ATU","Baja"],["Formalizar colectiveros","Media"],["Pasos a desnivel, puentes Comas–Puente Piedra, óvalos","Baja-media"],["Conexión Canta Callao–Panamericana Norte","Media"],["Quitar peajes","Baja-media"]]
+   }}
+];
+const ORIGINAL = CANDS.map(c=>c.scores.slice());
+CANDS.forEach(c=>{
+  const v=c.summary.plan.map(p=>FACTIB[p[1]]);
+  c.factib=Math.round(v.reduce((a,b)=>a+b,0)/v.length);
+});
+
+// tarjetas de candidatos
+const cg=document.getElementById("cands");
+CANDS.forEach((c,i)=>{
+  const s=c.summary;
+  const planRows=s.plan.map(p=>`<tr><td>${p[0]}</td><td><span class="tag ${cls(FACTIB[p[1]])}">${p[1]} · ${FACTIB[p[1]]} %</span></td></tr>`).join("");
+  cg.insertAdjacentHTML("beforeend",`
+  <div class="card">
+    <div class="cand-head"><span class="dot" style="background:${c.color}"></span><div><h3>${c.name}</h3><div class="note">${c.party}</div></div></div>
+    <div class="k">Factibilidad del plan</div>
+    <div class="fact-big ${cls(c.factib)}">${c.factib} %</div>
+    <div class="meter"><span style="width:${c.factib}%;background:${c.color}"></span></div>
+    <div class="k">Integridad y antecedentes</div><ul>${s.integ.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <div class="k">Gestión anterior</div><ul>${s.gestion.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <div class="k">Plan de trabajo</div>
+    <table>${planRows}</table>
+    <div class="k">Equipo y regidores</div><p style="margin:4px 0">${s.equipo}</p>
+    <div class="k">Estabilidad del cargo</div><p style="margin:4px 0">${s.estab}</p>
+  </div>`);
+  document.getElementById("tf"+i).innerHTML=`<span class="tag ${cls(c.factib)}">${c.factib} %</span>`;
+});
+
+// criterios
+document.querySelector("#rubric tbody").innerHTML=FACTORS.map(f=>`<tr><td><strong>${f.n}</strong></td><td>${f.d}</td><td>${f.r[0]}</td><td>${f.r[1]}</td><td>${f.r[2]}</td></tr>`).join("");
+
+// calculadora
+let weights=PROFILES["Resultados primero"].slice();
+let current="Resultados primero";
+const pf=document.getElementById("profiles");
+function drawProfiles(){
+  pf.innerHTML="";
+  Object.keys(PROFILES).forEach(k=>{
+    const b=document.createElement("button");b.type="button";b.textContent=k;
+    if(k===current)b.className="on";
+    b.onclick=()=>{weights=PROFILES[k].slice();current=k;drawProfiles();drawTable();};
+    pf.appendChild(b);
+  });
+}
+const box=document.getElementById("calc");
+function drawTable(){
+  box.innerHTML="";
+  FACTORS.forEach((f,i)=>{
+    const row=document.createElement("div");row.className="frow";
+    const why=CANDS.map(c=>`<strong>${c.short}:</strong> ${c.why[i]}`).join("<br>");
+    row.innerHTML=`
+      <div><strong>${f.n}</strong><div class="note">${f.d}</div>
+        <button type="button" class="why" data-why="${i}">¿por qué estas notas?</button></div>
+      <div class="wctl">
+        <button type="button" class="step" data-step="-1" data-i="${i}" aria-label="Bajar peso">−</button>
+        <input type="range" min="0" max="50" step="1" value="${weights[i]}" data-w="${i}" aria-label="Peso de ${f.n}">
+        <button type="button" class="step" data-step="1" data-i="${i}" aria-label="Subir peso">+</button>
+        <input type="number" inputmode="numeric" min="0" max="100" value="${weights[i]}" data-wn="${i}" aria-label="Peso de ${f.n}">
+      </div>
+      <div class="scores">${CANDS.map((c,j)=>`<label>${c.short}<select data-c="${j}" data-f="${i}">${[1,2,3,4,5].map(v=>`<option${v===c.scores[i]?" selected":""}>${v}</option>`).join("")}</select></label>`).join("")}</div>
+      <p class="whytxt" id="why${i}">${why}</p>`;
+    box.appendChild(row);
+  });
+  box.querySelectorAll("[data-w]").forEach(el=>{
+    const h=e=>setW(+el.dataset.w,+e.target.value);
+    el.addEventListener("input",h);el.addEventListener("change",h);
+  });
+  box.querySelectorAll("[data-wn]").forEach(el=>el.addEventListener("input",e=>setW(+el.dataset.wn,+e.target.value||0)));
+  box.querySelectorAll("[data-step]").forEach(el=>el.addEventListener("click",()=>{const i=+el.dataset.i;setW(i,weights[i]+(+el.dataset.step));}));
+  box.querySelectorAll("[data-why]").forEach(el=>el.addEventListener("click",()=>document.getElementById("why"+el.dataset.why).classList.toggle("show")));
+  box.querySelectorAll("select").forEach(el=>el.addEventListener("change",e=>{CANDS[+el.dataset.c].scores[+el.dataset.f]=+e.target.value;calc();}));
+  calc();
+}
+function setW(i,v){
+  weights[i]=Math.max(0,Math.min(100,v));
+  const r=box.querySelector(`[data-w="${i}"]`), n=box.querySelector(`[data-wn="${i}"]`);
+  if(+r.value!==weights[i])r.value=weights[i];
+  if(document.activeElement!==n)n.value=weights[i];
+  current=null;drawProfiles();calc();
+}
+function calc(){
+  const total=weights.reduce((a,b)=>a+b,0);
+  const sumEl=document.getElementById("sum");
+  sumEl.textContent=total+(total===100?" ✓":" (debe sumar 100)");
+  sumEl.className="sum"+(total===100?"":" err");
+  const res=CANDS.map(c=>({c,v: total? c.scores.reduce((a,s,i)=>a+s*weights[i],0)/total : 0}))
+    .sort((a,b)=>b.v-a.v);
+  document.getElementById("results").innerHTML=res.map((r,k)=>`
+    <div class="result-row">
+      <div class="${k===0?"winner":""}">${k+1}. ${r.c.short}</div>
+      <div class="bar"><span style="width:${(r.v/5*100).toFixed(1)}%;background:${r.c.color}"></span></div>
+      <div class="score">${r.v.toFixed(2)}</div>
+    </div>`).join("");
+  const gap=res[0].v-res[1].v;
+  document.getElementById("resnote").textContent = total!==100
+    ? "Los pesos no suman 100: el resultado se normaliza, pero conviene ajustarlos."
+    : (gap<0.1 ? `Prácticamente empate entre ${res[0].c.short} y ${res[1].c.short} (diferencia ${gap.toFixed(2)}).`
+               : `${res[0].c.short} lidera por ${gap.toFixed(2)} puntos sobre ${res[1].c.short}.`);
+}
+document.getElementById("reset").onclick=()=>{CANDS.forEach((c,i)=>c.scores=ORIGINAL[i].slice());drawTable();};
+drawProfiles();drawTable();
+</script>
+</body>
+</html>
